@@ -1,4 +1,4 @@
-# Amern - eCommerce Website
+# mern - eCommerce Website
 
 ## Description
 
