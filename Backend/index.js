@@ -5,31 +5,38 @@ import bookRoute from "./Route/book.route.js";
 import cors from "cors";
 import userRoute from "./Route/User.route.js";
 import path from "path";
+
 const app = express();
 
 const _dirname = path.resolve();
 
 app.use(cors());
-
 app.use(express.json());
 dotenv.config();
 
 const PORT = process.env.PORT || 4000;
-const URL = process.env.MongoDbURL;
+const uri = process.env.MongoDbURL;
 
-// Connect to mongodb
+// Debugging: Check the URI value
+console.log("MongoDbURL:", uri);
+
+// Connect to MongoDB
+if (!uri) {
+  console.error("Error: MongoDbURL is not defined.");
+  process.exit(1);
+}
+
 try {
-  mongoose.connect(URL, {
+  mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
-  console.log("connected to mongoDb");
+  console.log("Connected to MongoDB");
 } catch (error) {
-  console.log("Error: ", error);
+  console.error("Error connecting to MongoDB:", error);
 }
 
-//defining Routes
-
+// Defining Routes
 app.use("/book", bookRoute);
 app.use("/users", userRoute);
 
