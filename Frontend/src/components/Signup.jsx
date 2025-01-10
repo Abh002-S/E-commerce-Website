@@ -15,6 +15,7 @@ function Signup() {
   } = useForm();
 
   const onSubmit = async (data) => {
+    R;
     const userInfo = {
       fullname: data.fullname,
       email: data.email,
